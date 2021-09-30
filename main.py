@@ -65,6 +65,10 @@ class Jeu:
 
             pygame.draw.rect(self.ecran, (0, 255, 0), (self.serpent[0], self.serpent[1], self.taille, self.taille))
 
+
+            if self.serpent[0] <= 100 or self.serpent[0] >= 700 or self.serpent[1] <= 50 or self.serpent[1] >= 550:
+                sys.exit()
+
             pygame.display.flip()
 
 
