@@ -14,11 +14,14 @@ class Jeu:
 
         self.joue = True
 
-        self.tete = [300, 300]
-        self.direction = [10, 0]
+        self.serpent_tete = [300, 300]
+        self.serpent_direction = [10, 0]
+
+        self.pomme = [random.randrange(110, 690, 10), random.randrange(60, 540, 10)]
+
         self.taille = 10
 
-        self.temps_boucle = pygame.time.get_ticks()
+        self.temps_boucle = pygame.time.Clock()
 
 
     def boucle(self):
@@ -33,31 +36,35 @@ class Jeu:
                 if evenement.type == pygame.KEYDOWN:
 
                     if evenement.key == pygame.K_UP:
-                        self.direction = [0, -10]
+                        self.serpent_direction = [0, -10]
 
                     if evenement.key == pygame.K_RIGHT:
-                        self.direction = [10, 0]
+                        self.serpent_direction = [10, 0]
 
                     if evenement.key == pygame.K_LEFT:
-                        self.direction = [-10, 0]
+                        self.serpent_direction = [-10, 0]
 
                     if evenement.key == pygame.K_DOWN:
-                        self.direction = [0, 10]
+                        self.serpent_direction = [0, 10]
 
 
-            if (pygame.time.get_ticks() - self.temps_boucle) >= 200:
-                self.tete[0] += self.direction[0]
-                self.tete[1] += self.direction[1]
-                self.temps_boucle = pygame.time.get_ticks()
+            self.serpent_tete[0] += self.serpent_direction[0]
+            self.serpent_tete[1] += self.serpent_direction[1]
+
+            if self.pomme[0] == self.serpent_tete[0] and self.pomme[1] == self.serpent_tete[1]:
+                self.pomme = [random.randrange(110, 690, 10), random.randrange(60, 540, 10)]
 
 
             self.ecran.fill((0, 0, 0))
 
             self.bordure()
+            self.temps_boucle.tick(20)
 
-            pygame.draw.rect(self.ecran, (0, 255, 0), (self.tete[0], self.tete[1], self.taille, self.taille))
+            pygame.draw.rect(self.ecran, (0, 255, 0), (self.serpent_tete[0], self.serpent_tete[1], self.taille, self.taille))
 
-            if self.tete[0] <= 100 or self.tete[0] >= 700 or self.tete[1] <= 50 or self.tete[1] >= 550:
+            pygame.draw.rect(self.ecran, (255, 0, 0), (self.pomme[0], self.pomme[1], self.taille, self.taille))
+
+            if self.serpent_tete[0] <= 95 or self.serpent_tete[0] >= 700 or self.serpent_tete[1] <= 45 or self.serpent_tete[1] >= 550:
                 sys.exit()
 
             pygame.display.flip()
