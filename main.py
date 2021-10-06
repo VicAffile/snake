@@ -42,17 +42,17 @@ class Jeu:
 
                 if evenement.type == pygame.KEYDOWN:
 
-                    if evenement.key == pygame.K_UP:
-                        self.serpent_direction = [0, -10]
+                    if evenement.key == pygame.K_UP and self.serpent_direction != [0, 10]:
+                            self.serpent_direction = [0, -10]
 
-                    if evenement.key == pygame.K_RIGHT:
-                        self.serpent_direction = [10, 0]
+                    if evenement.key == pygame.K_RIGHT and self.serpent_direction != [-10, 0]:
+                            self.serpent_direction = [10, 0]
 
-                    if evenement.key == pygame.K_LEFT:
-                        self.serpent_direction = [-10, 0]
+                    if evenement.key == pygame.K_LEFT and self.serpent_direction != [10, 0]:
+                            self.serpent_direction = [-10, 0]
 
-                    if evenement.key == pygame.K_DOWN:
-                        self.serpent_direction = [0, 10]
+                    if evenement.key == pygame.K_DOWN and self.serpent_direction != [0, -10]:
+                            self.serpent_direction = [0, 10]
 
 
             self.serpent_tete[0] += self.serpent_direction[0]
@@ -60,6 +60,10 @@ class Jeu:
             self.serpent_position.insert(0, [int(self.serpent_tete[0]), int(self.serpent_tete[1])])
             if len(self.serpent_position) >= self.serpent_longueur:
                 self.serpent_position.pop()
+
+
+            self.mordre_queue()
+
 
             if self.pomme[0] == self.serpent_tete[0] and self.pomme[1] == self.serpent_tete[1]:
                 self.serpent_longueur += 1
@@ -87,6 +91,14 @@ class Jeu:
     def generer_serpent(self):
         for partie_serpent in self.serpent_position:
             pygame.draw.rect(self.ecran, (0, 255, 0), (partie_serpent[0], partie_serpent[1], self.taille, self.taille))
+
+
+    def mordre_queue(self):
+        del self.serpent_position[0]
+        for partie_serpent in self.serpent_position:
+            if partie_serpent == self.serpent_tete:
+                sys.exit()
+        self.serpent_position.insert(0, [int(self.serpent_tete[0]), int(self.serpent_tete[1])])
 
 
 if __name__ == '__main__':
