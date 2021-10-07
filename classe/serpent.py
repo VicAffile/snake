@@ -19,7 +19,7 @@ class Serpent:
         self.direction = [10, 0]
 
 
-    def generer(self, ecran):
+    def afficher(self, ecran):
         for partie in self.position:
             pygame.draw.rect(ecran, (0, 255, 0), (partie[0], partie[1], self.taille, self.taille))
 
