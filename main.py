@@ -16,6 +16,7 @@ class Jeu:
     def __init__(self):
 
         self.ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
+        self.menu = True
         self.joue = True
 
         self.taille = 10
@@ -29,6 +30,23 @@ class Jeu:
 
 
     def boucle(self):
+
+        while self.menu:
+
+            for evenement in pygame.event.get():
+
+                if evenement.type == pygame.quit():
+                    sys.exit()
+
+                if evenement.type == pygame.KEYDOWN:
+                    if evenement.key == pygame.K_RETURN:
+                        self.menu = False
+                        self.joue = True
+
+            self.ecran.fill((0, 0, 0))
+
+            pygame.display.flip()
+
 
         while self.joue:
 
@@ -54,18 +72,13 @@ class Jeu:
 
             self.serpent.avancer()
 
-
             self.serpent.mordre_queue()
-
 
             self.pomme_mange()
 
-
             self.ecran.fill((0, 0, 0))
 
-
             self.bordures()
-
 
             self.serpent.afficher(self.ecran)
 
