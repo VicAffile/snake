@@ -4,12 +4,14 @@ import pygame
 from classe.serpent import Serpent
 from classe.pomme import Pomme
 
-pygame.display.set_caption('Snake')
 
+titre = 'Snake'
 largeur_ecran = 800
 hauteur_ecran = 600
 marge_horizontal = 100
 marge_vertical = 50
+
+pygame.display.set_caption(titre)
 
 class Jeu:
 
@@ -17,7 +19,7 @@ class Jeu:
 
         self.ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
         self.menu = True
-        self.joue = True
+        self.joue = False
 
         self.taille = 10
 
@@ -35,7 +37,7 @@ class Jeu:
 
             for evenement in pygame.event.get():
 
-                if evenement.type == pygame.quit():
+                if evenement.type == pygame.QUIT:
                     sys.exit()
 
                 if evenement.type == pygame.KEYDOWN:
@@ -44,6 +46,11 @@ class Jeu:
                         self.joue = True
 
             self.ecran.fill((0, 0, 0))
+
+            self.afficher_message(titre.upper(), 'grande', (255, 255, 255), ((largeur_ecran / 2 - 50), (hauteur_ecran / 2 - 250), 100, 50))
+            self.afficher_message("Le but du jeu est de manger le plus de pommes possible", 'petite', (240, 240, 240), ((largeur_ecran / 2 - 180), (hauteur_ecran / 2 - 100), 200, 5))
+            self.afficher_message("Le serpent grossira à chaque pomme manger, s'il touche le bord ou se mord la queue c'est perdu", 'petite', (240, 240, 240), ((largeur_ecran / 2 - 300), (hauteur_ecran / 2 - 80), 200, 50))
+            self.afficher_message("Appuyer sur Entrée pour jouer", 'moyenne', (255, 255, 255), ((largeur_ecran / 2 - 150), (hauteur_ecran / 2 + 150), 200, 5))
 
             pygame.display.flip()
 
@@ -89,6 +96,21 @@ class Jeu:
             self.temps_boucle.tick(15)
 
             pygame.display.flip()
+
+
+
+    def afficher_message(self, message, taille, couleur, dimension):
+
+        if taille == 'petite':
+            taille = pygame.font.SysFont('Lato', 20, False)
+        elif taille == 'moyenne':
+            taille = pygame.font.SysFont('Lato', 30, False)
+        elif taille == 'grande':
+            taille = pygame.font.SysFont('Lato', 40, False)
+
+        message = taille.render(message, True, couleur)
+
+        self.ecran.blit(message, dimension)
 
 
     def bordures(self):
