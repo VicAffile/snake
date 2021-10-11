@@ -11,30 +11,30 @@ class Serpent:
 
         self.tete = [300, 300]
 
-        self.position = []
-        self.position.append([int(self.tete[0]), int(self.tete[1])])
-        self.position.append([self.tete[0] - self.taille, self.tete[1]])
-        self.position.append([self.tete[0] - 2 * self.taille, self.tete[1]])
+        self.positions = []
+        self.positions.append([int(self.tete[0]), int(self.tete[1])])
+        self.positions.append([self.tete[0] - self.taille, self.tete[1]])
+        self.positions.append([self.tete[0] - 2 * self.taille, self.tete[1]])
 
         self.direction = [10, 0]
 
 
     def afficher(self, ecran):
-        for partie in self.position:
-            pygame.draw.rect(ecran, (0, 255, 0), (partie[0], partie[1], self.taille, self.taille))
+        for position in self.positions:
+            pygame.draw.rect(ecran, (0, 255, 0), (position[0], position[1], self.taille, self.taille))
 
 
     def avancer(self):
         self.tete[0] += self.direction[0]
         self.tete[1] += self.direction[1]
-        self.position.insert(0, [int(self.tete[0]), int(self.tete[1])])
-        if len(self.position) >= self.longueur:
-            self.position.pop()
+        self.positions.insert(0, [int(self.tete[0]), int(self.tete[1])])
+        if len(self.positions) >= self.longueur:
+            self.positions.pop()
 
 
     def mordre_queue(self):
-        del self.position[0]
-        for partie in self.position:
-            if partie == self.tete:
+        del self.positions[0]
+        for position in self.positions:
+            if position == self.tete:
                 sys.exit()
-        self.position.insert(0, [int(self.tete[0]), int(self.tete[1])])
+        self.positions.insert(0, [int(self.tete[0]), int(self.tete[1])])
