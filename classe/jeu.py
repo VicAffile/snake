@@ -2,15 +2,17 @@ import sys
 
 import pygame
 
+from classe.ecran import Ecran
 from classe.pomme import Pomme
 from classe.serpent import Serpent
 
 
-class Jeu:
+class Jeu(Ecran):
 
     def __init__(self, actif, largeur_ecran, hauteur_ecran, marge_horizontal, marge_vertical):
 
-        self.actif = actif
+        Ecran.__init__(self, actif)
+
         self.temps_boucle = pygame.time.Clock()
 
         self.serpent = Serpent()
