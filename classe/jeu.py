@@ -46,7 +46,8 @@ class Jeu(Ecran):
 
             self.serpent.avancer()
 
-            self.serpent.mordre_queue()
+            if self.serpent.mordre_queue():
+                self.fin_jeu(ecran)
 
             self.pomme_mange(largeur_ecran, hauteur_ecran, marge_horizontal, marge_vertical)
 
@@ -60,7 +61,8 @@ class Jeu(Ecran):
 
             self.pomme.afficher(ecran)
 
-            self.sortie_bordures(largeur_ecran, hauteur_ecran, marge_horizontal, marge_vertical)
+            if self.sortie_bordures(largeur_ecran, hauteur_ecran, marge_horizontal, marge_vertical):
+                self.fin_jeu(ecran)
 
             self.temps_boucle.tick(15)
 
@@ -72,8 +74,11 @@ class Jeu(Ecran):
 
 
     def sortie_bordures(self, largeur_ecran, hauteur_ecran, marge_horizontal, marge_vertical):
+
         if self.serpent.tete[0] <= (marge_horizontal - 5) or self.serpent.tete[0] >= (largeur_ecran - marge_horizontal) or self.serpent.tete[1] <= (marge_vertical - 5) or self.serpent.tete[1] >= (hauteur_ecran - marge_vertical):
-            sys.exit()
+            return True
+
+        return False
 
 
     def pomme_mange(self, largeur_ecran, hauteur_ecran, marge_horizontal, marge_vertical):
@@ -81,3 +86,26 @@ class Jeu(Ecran):
             self.serpent.longueur += 1
             self.score += 1
             self.pomme.position = self.pomme.generer(marge_horizontal, marge_vertical, largeur_ecran, hauteur_ecran, self.serpent.positions)
+
+
+    def fin_jeu(self, ecran):
+
+        pygame.time.delay(1000)
+
+        while self.actif:
+
+            for evenement in pygame.event.get():
+
+                if evenement.type == pygame.QUIT:
+                    sys.exit()
+
+                if evenement.type == pygame.KEYDOWN:
+                    if evenement.key == pygame.K_RETURN:
+                        self.actif = False
+
+            ecran.fill((0, 0, 0))
+
+            self.afficher_message('FIN', 'grande', (240, 240, 240), (5, 5, 100, 50), ecran)
+            self.afficher_message('Ton score est {}'.format(str(self.score)), 'moyenne', (240, 240, 240), (5, 50, 100, 50), ecran)
+
+            pygame.display.flip()

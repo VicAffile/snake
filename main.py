@@ -27,11 +27,13 @@ class Logiciel:
 
             if self.menu.actif == True:
                 self.menu.boucle(self.ecran, self.titre, self.largeur_ecran, self.hauteur_ecran)
+                self.jeu = Jeu(False, self.largeur_ecran, self.hauteur_ecran, self.marge_horizontal, self.marge_vertical)
                 self.jeu.actif = True
 
 
             if self.jeu.actif == True:
                 self.jeu.boucle(self.ecran, self.largeur_ecran, self.hauteur_ecran, self.marge_horizontal, self.marge_vertical)
+                self.menu.actif = True
 
 
 if __name__ == '__main__':

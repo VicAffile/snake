@@ -37,5 +37,6 @@ class Serpent:
         del self.positions[0]
         for position in self.positions:
             if position == self.tete:
-                sys.exit()
+                return True
         self.positions.insert(0, [int(self.tete[0]), int(self.tete[1])])
+        return False
