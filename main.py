@@ -1,4 +1,4 @@
-import pygame
+import pygame, sqlite3
 
 from classe.menu import Menu
 from classe.jeu import Jeu
@@ -19,6 +19,22 @@ class Logiciel:
 
         self.menu = Menu(True)
         self.jeu = Jeu(False, self.largeur_ecran, self.hauteur_ecran, self.marge_horizontal, self.marge_vertical)
+
+        self.initialisation_bdd()
+
+
+    def initialisation_bdd(self):
+        connexion = sqlite3.connect("bdd/base_de_donnees.db")
+        curseur = connexion.cursor()
+        curseur.executescript("""
+            CREATE TABLE IF NOT EXISTS meilleurs_scores(
+                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                pseudo TEXT,
+                score INTEGER
+            )
+        """)
+        connexion.commit()
+        connexion.close()
 
 
     def boucle(self):
