@@ -35,21 +35,9 @@ class Table:
             connexion = sqlite3.connect("bdd/base_de_donnees.db")
             curseur = connexion.cursor()
 
-            curseur.execute("INSERT INTO meilleurs_scores (pseudo, score) VALUES ('Vic', 10)")
-            connexion.commit()
-            curseur.execute("INSERT INTO meilleurs_scores (pseudo, score) VALUES ('Alex', 7)")
-            connexion.commit()
-            curseur.execute("INSERT INTO meilleurs_scores (pseudo, score) VALUES ('Cedric', 15)")
-            connexion.commit()
-            curseur.execute("INSERT INTO meilleurs_scores (pseudo, score) VALUES ('Laure', 5)")
-            connexion.commit()
-            curseur.execute("INSERT INTO meilleurs_scores (pseudo, score) VALUES ('Guillaume', 1)")
-            connexion.commit()
-            '''
-            for score in [1, 2, 3, 4, 5]:
+            for index in [1, 2, 3, 4, 5]:
                 curseur.execute("INSERT INTO meilleurs_scores (pseudo, score) VALUES ('Aucun', 0)")
                 connexion.commit()
-            '''
 
             curseur.close()
             connexion.close()
@@ -60,8 +48,8 @@ class Table:
         connexion = sqlite3.connect("bdd/base_de_donnees.db")
         curseur = connexion.cursor()
 
-        for score in [1, 2, 3, 4, 5]:
-            curseur.execute("DELETE FROM meilleurs_scores WHERE id = ?;", (score,))
+        for id in [1, 2, 3, 4, 5]:
+            curseur.execute("UPDATE meilleurs_scores SET pseudo = ?, score = ? WHERE id = ?;",('Aucun', 0, id,))
             connexion.commit()
 
         curseur.close()

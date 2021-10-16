@@ -24,8 +24,6 @@ class Logiciel:
         self.bdd = Table()
         self.bdd.initialisation()
         self.bdd.remplissage()
-        self.bdd.ajouter("Guillaume", 1)
-        print(self.bdd.classement(5))
 
 
     def boucle(self):
