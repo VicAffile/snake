@@ -105,7 +105,7 @@ class Jeu(Ecran):
 
             ecran.fill((0, 0, 0))
 
-            self.afficher_message('FIN', 'grande', (240, 240, 240), (5, 5, 100, 50), ecran)
-            self.afficher_message('Ton score est {}'.format(str(self.score)), 'moyenne', (240, 240, 240), (5, 50, 100, 50), ecran)
+            self.afficher_message('FIN', 'grande', (240, 240, 240), (395, 200, 100, 50), ecran)
+            self.afficher_message('Ton score est {}'.format(str(self.score)), 'moyenne', (240, 240, 240), (340, 250, 100, 50), ecran)
 
             pygame.display.flip()

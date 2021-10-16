@@ -1,11 +1,14 @@
 import pygame
 
+from classe.table import Table
+
 
 class Ecran:
 
     def __init__(self, actif):
 
         self.actif = actif
+        self.bdd = Table()
 
 
     def afficher_message(self, message, taille, couleur, dimension, ecran):
